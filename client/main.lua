@@ -787,33 +787,33 @@ end)
 
 -- Money HUD
 
-RegisterNetEvent('hud:client:ShowAccounts', function(type, amount)
-    if type == 'cash' then
-        SendNUIMessage({
-            action = 'show',
-            type = 'cash',
-            cash = amount
-        })
-    else
-        SendNUIMessage({
-            action = 'show',
-            type = 'bank',
-            bank = amount
-        })
-    end
+RegisterNetEvent('hud:client:ShowAccounts', function(type, amount) -- Intentionally disabled money hud
+    -- if type == 'cash' then
+    --     SendNUIMessage({
+    --         action = 'show',
+    --         type = 'cash',
+    --         cash = amount
+    --     })
+    -- else
+    --     SendNUIMessage({
+    --         action = 'show',
+    --         type = 'bank',
+    --         bank = amount
+    --     })
+    -- end
 end)
 
-RegisterNetEvent('hud:client:OnMoneyChange', function(type, amount, isMinus)
-    cashAmount = QBX.PlayerData.money.cash
-    bankAmount = QBX.PlayerData.money.bank
-    SendNUIMessage({
-        action = 'updatemoney',
-        cash = cashAmount,
-        bank = bankAmount,
-        amount = amount,
-        minus = isMinus,
-        type = type
-    })
+RegisterNetEvent('hud:client:OnMoneyChange', function(type, amount, isMinus) -- Intentionally disabled money hud
+    -- cashAmount = QBX.PlayerData.money.cash
+    -- bankAmount = QBX.PlayerData.money.bank
+    -- SendNUIMessage({
+    --     action = 'updatemoney',
+    --     cash = cashAmount,
+    --     bank = bankAmount,
+    --     amount = amount,
+    --     minus = isMinus,
+    --     type = type
+    -- })
 end)
 
 -- Stress Gain
