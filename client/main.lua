@@ -274,7 +274,6 @@ RegisterNetEvent('hud:client:LoadMap', function()
         end
         SetMinimapClipType(0)
         AddReplaceTexture('platform:/textures/graphics', 'radarmasksm', 'squaremap', 'radarmasksm')
-        AddReplaceTexture('platform:/textures/graphics', 'radarmask1g', 'squaremap', 'radarmasksm')
         -- 0.0 = nav symbol and icons left
         -- 0.1638 = nav symbol and icons stretched
         -- 0.216 = nav symbol and icons raised up
@@ -308,7 +307,6 @@ RegisterNetEvent('hud:client:LoadMap', function()
         end
         SetMinimapClipType(1)
         AddReplaceTexture('platform:/textures/graphics', 'radarmasksm', 'circlemap', 'radarmasksm')
-        AddReplaceTexture('platform:/textures/graphics', 'radarmask1g', 'circlemap', 'radarmasksm')
         -- -0.0100 = nav symbol and icons left
         -- 0.180 = nav symbol and icons stretched
         -- 0.258 = nav symbol and icons raised up
@@ -335,6 +333,27 @@ RegisterNetEvent('hud:client:LoadMap', function()
         if sharedConfig.menu.isMapNotifChecked then
             exports.qbx_core:Notify(locale('notify.loaded_circle_map'), 'success')
         end
+    end
+end)
+
+CreateThread(function()
+    local minimap = RequestScaleformMovie('minimap')
+
+    while not HasScaleformMovieLoaded(minimap) do
+        Wait(0)
+    end
+
+    -- Initialise/reset the minimap scaleform
+    SetRadarBigmapEnabled(true, false)
+    Wait(0)
+    SetRadarBigmapEnabled(false, false)
+
+    while true do
+        Wait(0)
+
+        BeginScaleformMovieMethod(minimap, 'SETUP_HEALTH_ARMOUR')
+        ScaleformMovieMethodAddParamInt(3)
+        EndScaleformMovieMethod()
     end
 end)
 
