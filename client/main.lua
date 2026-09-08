@@ -690,8 +690,12 @@ CreateThread(function()
             })
             end
             -- Vehicle hud
+            local vehicleClass = cache.vehicle and GetVehicleClass(cache.vehicle)
+
             if IsPedInAnyHeli(cache.ped) or IsPedInAnyPlane(cache.ped) then
                 showAltitude = true
+                showSeatbelt = false
+            elseif vehicleClass == 8 or vehicleClass == 13 then
                 showSeatbelt = false
             end
             if cache.vehicle and not IsThisModelABicycle(cache.vehicle) then
