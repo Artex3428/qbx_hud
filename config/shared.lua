@@ -18,7 +18,7 @@ return {
         isDynamicOxygenChecked = true, -- isDynamicOxygenChecked
         isChangeFPSChecked = true, -- isChangeFPSChecked
         isHideMapChecked = false, -- isHideMapChecked
-        isToggleMapBordersChecked = true, -- isToggleMapBordersChecked
+        isToggleMapBordersChecked = false, -- isToggleMapBordersChecked
         isDynamicEngineChecked = true, -- isDynamicEngineChecked
         isDynamicNitroChecked = true, -- isDynamicNitroChecked
         isChangeCompassFPSChecked = true, -- isChangeCompassFPSChecked
