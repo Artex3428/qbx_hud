@@ -1,4 +1,6 @@
 return {
+    showMoneyHud = false, -- Weather to display money hud the cash and bank on screen or not
+
     menuKey = 'I', -- Key to open the HUD menu
     useMPH = true, -- If true, speed math will be done as MPH, if false KPH will be used (YOU HAVE TO CHANGE CONTENT IN STYLES.CSS TO DISPLAY THE CORRECT TEXT)
 
