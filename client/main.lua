@@ -21,6 +21,7 @@ local playerDead = false
 local showMenu = false
 local showCircleB = false
 local showSquareB = false
+local showSquareBR = false
 local CinematicHeight = 0.2
 local w = 0
 local hasWeapon = false
@@ -295,6 +296,41 @@ RegisterNetEvent('hud:client:LoadMap', function()
         if sharedConfig.menu.isToggleMapBordersChecked then
             showCircleB = false
             showSquareB = true
+            showSquareBR = false
+        end
+        Wait(1200)
+        if sharedConfig.menu.isMapNotifChecked then
+            exports.qbx_core:Notify(locale('notify.loaded_square_map'), 'success')
+        end
+    elseif sharedConfig.menu.isToggleMapShapeChecked == 'squareR' then
+        lib.requestStreamedTextureDict('squaremapradius')
+        if sharedConfig.menu.isMapNotifChecked then
+            exports.qbx_core:Notify(locale('notify.load_square_map'), 'inform')
+        end
+        SetMinimapClipType(0)
+        AddReplaceTexture('platform:/textures/graphics', 'radarmasksm', 'squaremapradius', 'radarmasksm')
+        -- 0.0 = nav symbol and icons left
+        -- 0.1638 = nav symbol and icons stretched
+        -- 0.216 = nav symbol and icons raised up
+        SetMinimapComponentPosition('minimap', 'L', 'B', 0.0 + minimapOffset, -0.047, 0.1638, 0.183)
+
+        -- icons within map
+        SetMinimapComponentPosition('minimap_mask', 'L', 'B', 0.0 + minimapOffset, 0.0, 0.128, 0.20)
+
+        -- -0.01 = map pulled left
+        -- 0.025 = map raised up
+        -- 0.262 = map stretched
+        -- 0.315 = map shorten
+        SetMinimapComponentPosition('minimap_blur', 'L', 'B', -0.01 + minimapOffset, 0.025, 0.262, 0.300)
+        SetBlipAlpha(GetNorthRadarBlip(), 0)
+        SetBigmapActive(true, false)
+        SetMinimapClipType(0)
+        Wait(50)
+        SetBigmapActive(false, false)
+        if sharedConfig.menu.isToggleMapBordersChecked then
+            showCircleB = false
+            showSquareB = false
+            showSquareBR = true
         end
         Wait(1200)
         if sharedConfig.menu.isMapNotifChecked then
@@ -328,6 +364,7 @@ RegisterNetEvent('hud:client:LoadMap', function()
         if sharedConfig.menu.isToggleMapBordersChecked then
             showSquareB = false
             showCircleB = true
+            showSquareBR = false
         end
         Wait(1200)
         if sharedConfig.menu.isMapNotifChecked then
@@ -357,13 +394,20 @@ CreateThread(function()
     end
 end)
 
-RegisterNUICallback('ToggleMapShape', function(_, cb)
+RegisterNUICallback('ToggleMapShape', function(data, cb)
     Wait(50)
+
     if not sharedConfig.menu.isHideMapChecked then
-        sharedConfig.menu.isToggleMapShapeChecked = sharedConfig.menu.isToggleMapShapeChecked == 'circle' and 'square' or 'circle'
-        Wait(50)
-        TriggerEvent('hud:client:LoadMap')
+        local shape = data.shape
+
+        if shape == 'circle' or shape == 'square' or shape == 'squareR' then
+            sharedConfig.menu.isToggleMapShapeChecked = shape
+
+            Wait(50)
+            TriggerEvent('hud:client:LoadMap')
+        end
     end
+
     saveSettings()
     cb('ok')
 end)
@@ -374,12 +418,15 @@ RegisterNUICallback('ToggleMapBorders', function(_, cb)
     if sharedConfig.menu.isToggleMapBordersChecked then
         if sharedConfig.menu.isToggleMapShapeChecked == 'square' then
             showSquareB = true
+        elseif sharedConfig.menu.isToggleMapShapeChecked == 'square' then
+            showSquareBR = true
         else
             showCircleB = true
         end
     else
         showSquareB = false
         showCircleB = false
+        showSquareBR = false
     end
     saveSettings()
     cb('ok')
@@ -599,6 +646,7 @@ local function updateVehicleHud(data)
             showSeatbelt = data[8],
             showSquareB = data[9],
             showCircleB = data[10],
+            showSquareBR = data[11],
         })
     end
 end
@@ -746,6 +794,7 @@ CreateThread(function()
                     showSeatbelt,
                     showSquareB,
                     showCircleB,
+                    showSquareBR,
                 })
                 showAltitude = false
                 showSeatbelt = true
@@ -1073,6 +1122,7 @@ RegisterNetEvent('qbx_hud:client:showHud', function()
             showSeatbelt,
             showSquareB,
             showCircleB,
+            showSquareBR,
         })
     end
 end)

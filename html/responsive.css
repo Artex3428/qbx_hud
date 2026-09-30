@@ -38,13 +38,17 @@
     font-size: 0.9vh!important;
   }
   .square {
-    left: 2.5vh!important;
+    left: 2.6vh!important;
     bottom: 6%!important;
   }
   .circle {
     left: 3.2vh!important;
     width: 27.6vh!important;
     bottom: 6.9%!important;
+  }
+  .squareR {
+    left: 2.6vh!important;
+    bottom: 6%!important;
   }
 }
 
@@ -84,7 +88,7 @@
     font-size: 0.6vh!important;
   }
   .square {
-    left: 2.4vh!important;
+    left: 2.5vh!important;
     bottom: 6.1%!important;
 	  width: 29.3vh!important;
   }
@@ -92,6 +96,11 @@
     left: 3.6vh!important;
 	  width: 27.6vh!important;
 	  bottom: 6.9%!important;
+  }
+  .squareR {
+    left: 2.5vh!important;
+    bottom: 6.1%!important;
+	  width: 29.3vh!important;
   }
 }
 
@@ -131,7 +140,7 @@
     font-size: 0.7vh!important;
   }
   .square {
-    left: 2.3vh!important;
+    left: 2.4vh!important;
     bottom: 6.1%!important;
 	  width: 29.3vh!important;
   }
@@ -139,6 +148,11 @@
     left: 3.5vh!important;
 	  width: 27.6vh!important;
 	  bottom: 6.9%!important;
+  }
+  .squareR {
+    left: 2.4vh!important;
+    bottom: 6.1%!important;
+	  width: 29.3vh!important;
   }
 }
 
@@ -178,13 +192,17 @@
     font-size: 0.7vh!important;
   }
   .square {
-    left: 2.3vh!important;
+    left: 2.4vh!important;
     bottom: 6%!important;
   }
   .circle {
     left: 3.5vh!important;
 	  width: 27.6vh!important;
 	  bottom: 6.7%!important;
+  }
+  .squareR {
+    left: 2.4vh!important;
+    bottom: 6%!important;
   }
 }
 
@@ -224,13 +242,17 @@
     font-size: 0.7vh!important;
   }
   .square {
-    left: 2vh!important;
+    left: 2.1vh!important;
     bottom: 6%!important;
   }
   .circle {
     left: 2.7vh!important;
 	  width: 27.6vh!important;
 	  bottom: 7%!important;
+  }
+  .squareR {
+    left: 2.1vh!important;
+    bottom: 6%!important;
   }
 }
 
@@ -270,13 +292,17 @@
     font-size: 0.8vh!important;
   }
   .square {
-    left: 2.2vh!important;
+    left: 2.3vh!important;
     bottom: 6%!important;
   }
   .circle {
     left: 3.2vh!important;
 	  width: 27.6vh!important;
 	  bottom: 7%!important;
+  }
+  .squareR {
+    left: 2.3vh!important;
+    bottom: 6%!important;
   }
 }
 
@@ -316,13 +342,17 @@
     font-size: 0.9vh!important;
   }
   .square {
-    left: 2.5vh!important;
+    left: 2.6vh!important;
     bottom: 6%!important;
   }
   .circle {
     left: 3.7vh!important;
     width: 27.3vh!important;
     bottom: 7%!important;
+  }
+  .squareR {
+    left: 2.6vh!important;
+    bottom: 6%!important;
   }
 }
 
@@ -362,12 +392,16 @@
     font-size: 1.4vh!important;
   }
   .square {
-    left: 2.5vh!important;
+    left: 2.6vh!important;
     bottom: 6%!important;
   }
   .circle {
     left: 4vh!important;
 	  width: 27.6vh!important;
 	  bottom: 6.9%!important;
+  }
+  .squareR {
+    left: 2.6vh!important;
+    bottom: 6%!important;
   }
 }

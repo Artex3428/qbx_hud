@@ -248,15 +248,16 @@ const app = Vue.createApp({
 			} else {
 				return stored;
 			}
-		}, 
-    initIsToggleMapShapeChecked: function() {
-			const stored = localStorage.getItem("isToggleMapShapeChecked");
-			if (stored === null) {
-				return 'Circle';
-			} else {
-				return stored;
-			}
 		},
+    initIsToggleMapShapeChecked: function() {
+        const stored = localStorage.getItem("isToggleMapShapeChecked");
+
+        if (stored === null) {
+            return 'circle';
+        }
+
+        return stored;
+    },
     initIsHideMapChecked: function() {
 			const stored = localStorage.getItem("isHideMapChecked");
 			if (stored === null) {
@@ -398,9 +399,8 @@ const app = Vue.createApp({
       targetId = event.currentTarget.id;
       changeFPS()
     },
-    ToggleMapShape: function(event) {
-      targetId = event.currentTarget.id;
-      ToggleMapShape()
+    ToggleMapShape: function (value) {
+        ToggleMapShape(value);
     },
     HideMap: function(event) {
       targetId = event.currentTarget.id;
@@ -515,8 +515,13 @@ function dynamicEngine() {
 function dynamicNitro() {
   $.post(`https://${GetParentResourceName()}/dynamicNitro`);
 }
-function ToggleMapShape() {
-  $.post(`https://${GetParentResourceName()}/ToggleMapShape`);
+function ToggleMapShape(shape) {
+    $.post(
+        `https://${GetParentResourceName()}/ToggleMapShape`,
+        JSON.stringify({
+            shape: shape
+        })
+    );
 }
 function changeFPS() {
   $.post(`https://${GetParentResourceName()}/changeFPS`);
@@ -958,6 +963,7 @@ const vehHud = {
       showSeatbelt: true,
       showSquare: false,
       showCircle: false,
+      showSquareR: false,
       seatbeltColor: "",
     };
   },
@@ -982,6 +988,7 @@ const vehHud = {
       this.showAltitude = data.showAltitude;
       this.showSquareB = data.showSquareB;
       this.showCircleB = data.showCircleB;
+      this.showSquareR = data.showSquareBR;
       if (data.seatbelt === true) {
         this.seatbelt = 1;
         this.seatbeltColor = "transparent";
@@ -1015,6 +1022,11 @@ const vehHud = {
         this.showCircle = true;
       } else {
         this.showCircle = false;
+      }
+      if (data.showSquareBR === true) {
+        this.showSquareR = true;
+      } else {
+        this.showSquareR = false;
       }
       if (data.isPaused === 1) {
         this.show = false;
