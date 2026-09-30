@@ -700,7 +700,7 @@ CreateThread(function()
             if LocalPlayer.state.proximity then
                 voice = LocalPlayer.state.proximity.distance
             end
-            if IsPauseMenuActive() then
+            if IsPauseMenuActive() or LocalPlayer.state.invOpen then
                 show = false
             end
             if not (cache.vehicle and not IsThisModelABicycle(cache.vehicle)) then
@@ -1061,50 +1061,65 @@ CreateThread(function()
         else
             Wait(0)
         end
-        local show = true
-        local camRot = GetGameplayCamRot(0)
-        if sharedConfig.menu.isCompassFollowChecked then
-            heading = qbx.math.round(360.0 - ((camRot.z + 360.0) % 360.0))
-        else
-            heading = qbx.math.round(360.0 - GetEntityHeading(cache.ped))
-        end
-		if heading == 360 then heading = 0 end
-        if heading ~= lastHeading then
-            if cache.vehicle then
-                local crossroads = getCrossroads(cache.ped)
-                SendNUIMessage ({
-                    action = 'update',
-                    value = heading
-                })
-                updateBaseplateHud({
-                    show,
-                    crossroads[1],
-                    crossroads[2],
-                    sharedConfig.menu.isCompassShowChecked,
-                    sharedConfig.menu.isShowStreetsChecked,
-                    sharedConfig.menu.isPointerShowChecked,
-                    sharedConfig.menu.isDegreesShowChecked,
-                })
+
+        local hideCompass = IsPauseMenuActive() or LocalPlayer.state.invOpen
+
+        if hideCompass then
+            updateBaseplateHud({
+                false,
+                '',
+                '',
+                false,
+                false,
+                false,
+                false,
+            })
+        else 
+            local show = true
+            local camRot = GetGameplayCamRot(0)
+            if sharedConfig.menu.isCompassFollowChecked then
+                heading = qbx.math.round(360.0 - ((camRot.z + 360.0) % 360.0))
             else
-                if sharedConfig.menu.isOutCompassChecked then
+                heading = qbx.math.round(360.0 - GetEntityHeading(cache.ped))
+            end
+            if heading == 360 then heading = 0 end
+            if heading ~= lastHeading then
+                if cache.vehicle then
+                    local crossroads = getCrossroads(cache.ped)
                     SendNUIMessage ({
                         action = 'update',
                         value = heading
                     })
-                    SendNUIMessage ({
-                        action = 'baseplate',
-                        show = true,
-                        showCompass = true,
+                    updateBaseplateHud({
+                        show,
+                        crossroads[1],
+                        crossroads[2],
+                        sharedConfig.menu.isCompassShowChecked,
+                        sharedConfig.menu.isShowStreetsChecked,
+                        sharedConfig.menu.isPointerShowChecked,
+                        sharedConfig.menu.isDegreesShowChecked,
                     })
                 else
-                    SendNUIMessage ({
-                        action = 'baseplate',
-                        show = false,
-                    })
+                    if sharedConfig.menu.isOutCompassChecked then
+                        SendNUIMessage ({
+                            action = 'update',
+                            value = heading
+                        })
+                        SendNUIMessage ({
+                            action = 'baseplate',
+                            show = true,
+                            showCompass = true,
+                        })
+                    else
+                        SendNUIMessage ({
+                            action = 'baseplate',
+                            show = false,
+                        })
+                    end
                 end
             end
+            lastHeading = heading
         end
-        lastHeading = heading
     end
 end)
 
