@@ -700,9 +700,12 @@ CreateThread(function()
             if LocalPlayer.state.proximity then
                 voice = LocalPlayer.state.proximity.distance
             end
-            if IsPauseMenuActive() or LocalPlayer.state.invOpen then
+
+            local screenHidden = IsScreenFadingOut() or IsScreenFadedOut() or IsScreenFadingIn()
+            if IsPauseMenuActive() or LocalPlayer.state.invOpen or screenHidden then
                 show = false
             end
+
             if not (cache.vehicle and not IsThisModelABicycle(cache.vehicle)) then
             updatePlayerHud({
                 show,
@@ -1062,7 +1065,9 @@ CreateThread(function()
             Wait(0)
         end
 
-        local hideCompass = IsPauseMenuActive() or LocalPlayer.state.invOpen
+        local screenHidden = IsScreenFadingOut() or IsScreenFadedOut() or IsScreenFadingIn()
+
+        local hideCompass = IsPauseMenuActive() or LocalPlayer.state.invOpen or screenHidden
 
         if hideCompass then
             updateBaseplateHud({
